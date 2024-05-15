@@ -17,6 +17,7 @@ let g:roarie_startup_hl_matches = has_key(g:, "roarie_startup_hl_matches") ? g:r
 let g:roarie_startup_options = has_key(g:, "roarie_startup_options") ? g:roarie_startup_options : [
 	\ "bufhidden=wipe",
 	\ "buftype=nofile",
+	\ "concealcursor=nc",
 	\ "filetype=terminal",
 	\ "nobuflisted",
 	\ "nocursorcolumn",
