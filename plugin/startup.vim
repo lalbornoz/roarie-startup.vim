@@ -156,6 +156,14 @@ fun! s:EnterStartupScreen()
 	augroup END
 
 	"
+	" If the Colorizer plugin is available to render ANSI art in the
+	" startup screen, if any, turn it on for the startup buffer.
+	"
+	if exists("g:loaded_colorizer")
+		:ColorToggle
+	endif
+
+	"
 	" Setup mappings to exit startup screen as per g:roarie_startup_exit_on;
 	" exit startup screen on insert and start insert mode within a new buffer
 	" as per g:roarie_startup_exit_startinsert_on.
