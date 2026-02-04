@@ -146,21 +146,22 @@ fun! s:EnterStartupScreen()
 	" Start a new buffer, set local options for it, set the startup screen
 	" within the buffer, and setup an autocommand to re-set the startup screen
 	" within the buffer whenever the editor is resized.
+	" If the Colorizer plugin is available to render ANSI art in the startup
+	" screen, if any, turn it on for the startup buffer upon entering it
+	" and initially.
 	"
 	enew
 	execute "setlocal" join(g:roarie_startup_options, " ")
 	let bufno = bufnr("%") | let winnr = winnr()
 	call s:SetBuffer(bufno, winnr)
 	augroup StartupScreenResize
+		if exists("g:loaded_colorizer")
+			autocmd BufEnter <buffer> call Colorizer#DoColor(0, 1, line('$'))
+		endif
 		execute 'autocmd VimResized * call s:SetBuffer(' . bufno . ', ' . winnr . ')'
 	augroup END
-
-	"
-	" If the Colorizer plugin is available to render ANSI art in the
-	" startup screen, if any, turn it on for the startup buffer.
-	"
 	if exists("g:loaded_colorizer")
-		:ColorToggle
+		call Colorizer#DoColor(0, 1, line('$'))
 	endif
 
 	"
